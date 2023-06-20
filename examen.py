@@ -16,16 +16,17 @@ import csv
 
 def procesar(archivo_csv, curso):
     estudiantes = []
-    with open(archivo_csv) as f:
+    with open(archivo_csv, newline='') as f:
         reader = csv.reader(f)
+        next(reader)
         for row in reader:
-            if row[2]==curso:
-                estudiantes.append(row[0])
+            if row[3]==str(curso):
+                estudiantes.append(tuple(row))
     if not estudiantes:
         raise ValueError("No hay estudiantes en el curso")
     return estudiantes
 
-#print(procesar("estudiantes.csv",3))
+print(procesar("estudiantes.csv",3))
 
 
 def combinar(dic1,dic2, dic3):
@@ -41,4 +42,15 @@ diccionario_nombres_edades = {'Ana': 25, 'Juan': 30, 'Maria': 28}
 diccionario_nombres_profesiones = {'Ana': 'Ingeniera', 'Juan': 'Doctor', 'Maria':'Abogada'}
 diccionario_nombres_sueldos = {'Ana': 5000, 'Juan': 7000, 'Maria': 6000}
 
-print(combinar(diccionario_nombres_edades, diccionario_nombres_profesiones, diccionario_nombres_sueldos))
+#print(combinar(diccionario_nombres_edades, diccionario_nombres_profesiones, diccionario_nombres_sueldos))
+
+def palabra_repetida(fichero):
+    with open(fichero) as f:
+        palabras=f.read().splitlines()
+    contador={}
+    for palabra in palabras:
+        contador[palabra]=contador.get(palabra,0)+1
+    palabra_mas_repetida=max(contador, key=contador.get)
+    return palabra_mas_repetida
+
+#print(palabra_repetida("palabras.txt"))
