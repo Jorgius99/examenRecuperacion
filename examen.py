@@ -16,7 +16,7 @@ import csv
 
 def procesar(archivo_csv, curso):
     estudiantes = []
-    with open(archivo_csv, newline='') as f:
+    with open(archivo_csv) as f:
         reader = csv.reader(f)
         for row in reader:
             if row[2]==curso:
@@ -25,4 +25,20 @@ def procesar(archivo_csv, curso):
         raise ValueError("No hay estudiantes en el curso")
     return estudiantes
 
-print(procesar("estudiantes.csv",3))
+#print(procesar("estudiantes.csv",3))
+
+
+def combinar(dic1,dic2, dic3):
+    diccionario_final={}
+    for nombre in dic1:
+        edad=dic1.get(nombre)
+        profesion=dic2.get(nombre)
+        sueldo=dic3.get(nombre)
+        diccionario_final[nombre]={'edad':edad, 'profesion':profesion, 'sueldo':sueldo}
+    return diccionario_final
+
+diccionario_nombres_edades = {'Ana': 25, 'Juan': 30, 'Maria': 28}
+diccionario_nombres_profesiones = {'Ana': 'Ingeniera', 'Juan': 'Doctor', 'Maria':'Abogada'}
+diccionario_nombres_sueldos = {'Ana': 5000, 'Juan': 7000, 'Maria': 6000}
+
+print(combinar(diccionario_nombres_edades, diccionario_nombres_profesiones, diccionario_nombres_sueldos))
